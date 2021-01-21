@@ -18,9 +18,22 @@ class ClientsController extends Controller
     public function start(Request $request)
     {
         Log::debug('ClientsController.start | begin');
+        Log::debug('ClientsController.start | request: '.print_r($request, true));
 
+        /*
+        {
+            token: '34kjl5hn34l5hn34j54h3j',
+            screenshot: [
+                {
+                    img: 'imagen base 64',
+                    monitor: '1'
+                }
+            ]
+        }
+        */
 
-
+        
         Log::debug('ClientsController.start | end');
+        return view('welcome');
     }
 }

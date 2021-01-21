@@ -15,7 +15,6 @@ class UsersBusiness extends Migration
     {
         Schema::create('users_business', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
             $table->integer('users_id');
             $table->integer('business_id');
             $table->timestamps();

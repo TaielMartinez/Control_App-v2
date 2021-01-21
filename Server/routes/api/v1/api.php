@@ -8,5 +8,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('start', 'api\v1\ClientsController@start');
 
 // recibe toda la informacion del cliente
-Route::post('connect', 'api\v1\ClientsController@screenshot');
-
+Route::post('connect/hola', 'api\v1\ClientsController@screenshot');

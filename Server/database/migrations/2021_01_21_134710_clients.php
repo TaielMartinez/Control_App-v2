@@ -19,6 +19,7 @@ class Clients extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('password');
+            $table->integer('clients_config_id');
             $table->timestamps();
         });
     }
