@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use ClientsBusiness;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Business extends EloquentModel
 {
-    use SoftDeletes;
-
     public $table = 'business';
 
     const CREATED_AT = 'created_at';

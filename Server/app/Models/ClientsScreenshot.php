@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class ClientsScreenshot extends EloquentModel
 {
-    use SoftDeletes;
 
     public $table = 'clients_screenshot';
 

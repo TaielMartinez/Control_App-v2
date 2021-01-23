@@ -2,26 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class UsersRoles extends EloquentModel
+class UsersBusiness extends EloquentModel
 {
-    use SoftDeletes;
 
-    public $table = 'users_roles';
+    public $table = 'users_business';
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
     protected $fillable = [
         'users_id',
-        'rol_id'
+        'business_id'
     ];
 
     protected $casts = [
         'users_id' => 'integer',
-        'rol_id' => 'integer'
+        'business_id' => 'integer'
     ];
 
     public function user()
@@ -29,8 +27,8 @@ class UsersRoles extends EloquentModel
         return $this->hasOne(User::class);
     }
 
-    public function rol()
+    public function business()
     {
-        return $this->hasOne(Roles::class, 'rol_id');
+        return $this->hasOne(Business::class);
     }
 }

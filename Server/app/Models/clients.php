@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Clients extends EloquentModel
 {
-    use SoftDeletes;
 
     public $table = 'clients';
 
@@ -33,5 +31,10 @@ class Clients extends EloquentModel
     public function business()
     {
         return $this->belongsTo(ClientsBusiness::class, 'id', 'clients_id');
+    }
+
+    public function config()
+    {
+        return $this->belongsTo(ClientsConfig::class, 'clients_config_id');
     }
 }
