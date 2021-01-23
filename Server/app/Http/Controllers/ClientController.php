@@ -15,14 +15,14 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function start(Request $request)
+    public function client(Request $request)
     {
         Log::debug('ClientsController.start | begin');
-        Log::debug('ClientsController.start | request: '.print_r($request, true));
 
         /*
         {
-            token: '34kjl5hn34l5hn34j54h3j',
+            business_token: '29348u231jha1s2f5jskjgdf', 
+            client_token: '34kjl5hn34l5hn34j54h3j',
             screenshot: [
                 {
                     img: 'imagen base 64',
@@ -32,8 +32,8 @@ class ClientsController extends Controller
         }
         */
 
-        
+
         Log::debug('ClientsController.start | end');
-        return view('welcome');
+        return 'hola';
     }
 }
