@@ -1,27 +1,34 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require("electron");
+const screenshot = require("screenshot-desktop");
 
-function createWindow () {
+function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
-    }
-  })
+      nodeIntegration: true,
+    },
+  });
 
-  win.loadFile('src/html/index.html')
+  win.loadFile("src/html/index.html");
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(createWindow);
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+app.on("window-all-closed", () => {});
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
-  }
-})
+app.on("activate", () => {
+  createWindow();
+});
+
+ipcMain.on("take-screenshot", function (event, arg) {
+  console.log("get screenshot");
+  screenshot({ format: "png" })
+    .then((img) => {
+      event.reply("send-screenshot", img.toString("base64"));
+    })
+    .catch((err) => {});
+  //const electronScreenshot = require("electron-base64-screenshot");
+  //let base64image = electronScreenshot.takeScreenshot();
+  //event.reply("send-screenshot", base64image);
+});

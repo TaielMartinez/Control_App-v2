@@ -35,6 +35,6 @@ class Clients extends EloquentModel
 
     public function config()
     {
-        return $this->belongsTo(ClientsConfig::class, 'clients_config_id');
+        return $this->hasOne(ClientsConfig::class, 'clients_config_id', 'id');
     }
 }

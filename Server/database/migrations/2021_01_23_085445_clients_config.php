@@ -17,7 +17,7 @@ class ClientsConfig extends Migration
             $table->id();
             $table->integer('connect_interval');
             $table->integer('screenshot');
-            $table->integer('monitor');
+            $table->integer('monitor')->nullable();
             $table->timestamps();
         });
     }

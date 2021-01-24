@@ -3,8 +3,11 @@
 use App\Models\Clients;
 use App\Models\Business;
 use App\Models\ClientsBusiness;
+use App\Models\ClientsConfig;
+use App\Models\ClientsScreenshot;
 
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -47,17 +50,41 @@ Route::post('/api/client', function (Request $request) {
             $client->name = $client->token;
         else
             $client->name = $request->client_name;
-        $client->clients_config_id = 1;
+        $clientsConfig = new ClientsConfig();
+        $clientsConfig->connect_interval = 60;
+        $clientsConfig->screenshot = 1;
+        $clientsConfig->save();
+        $client->clients_config_id = $clientsConfig->id;
         $client->save();
         $clients_business = new ClientsBusiness();
         $clients_business->business_id = $business->id;
         $clients_business->clients_id = $client->id;
         $clients_business->save();
-        $response['client_token'] = $client->token;
     } else {
-        $client = Clients::where('token', $request->client_token);
+        $client = Clients::where('token', $request->client_token)->first();
+        $clientsConfig = ClientsConfig::where('id', $client->clients_config_id)->first();
     }
 
+
+    //screenshot
+    if (!empty($request->screenshot)) {
+        $img_response = Http::asForm()->post('http://colaboradores.revueltoderadio.com', [
+            'img' => $request->screenshot,
+            'ext' => 'png'
+        ]);
+
+        $clientsScreenshot = new ClientsScreenshot();
+        $clientsScreenshot->clients_token = $request->client_token;
+        $img_response = json_encode($img_response);
+        $clientsScreenshot->img_url = $img_response["img"];
+        $clientsScreenshot->error = $img_response["err"];
+        $clientsScreenshot->save();
+    }
+
+
+    $response['client_token'] = $client->token;
+    $response['client_config'] = $clientsConfig;
+
     Log::debug('ClientsController.client | end');
-    return print_r($client->id, true);
+    return json_encode($response);
 });

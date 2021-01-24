@@ -15,12 +15,14 @@ class ClientsScreenshot extends EloquentModel
     protected $fillable = [
         'clients_token',
         'img_url',
+        'error',
         'monitor'
     ];
 
     protected $casts = [
         'clients_token' => 'string',
         'img_url' => 'string',
+        'error' => 'string',
         'monitor' => 'integer'
     ];
 
