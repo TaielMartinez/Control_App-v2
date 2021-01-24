@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const screenshot = require("screenshot-desktop");
+const AutoLaunch = require("auto-launch");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -31,4 +32,12 @@ ipcMain.on("take-screenshot", function (event, arg) {
   //const electronScreenshot = require("electron-base64-screenshot");
   //let base64image = electronScreenshot.takeScreenshot();
   //event.reply("send-screenshot", base64image);
+});
+
+let autoLaunch = new AutoLaunch({
+  name: "Control App",
+  path: app.getPath("exe"),
+});
+autoLaunch.isEnabled().then((isEnabled) => {
+  if (!isEnabled) autoLaunch.enable();
 });

@@ -18,7 +18,7 @@ class ClientsScreenshot extends Migration
             $table->string('clients_token');
             $table->string('img_url');
             $table->string('error');
-            $table->integer('monitor');
+            $table->integer('monitor')->nullable();
             $table->timestamps();
         });
     }

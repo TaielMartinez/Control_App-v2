@@ -10,15 +10,15 @@ class ClientsConnect extends EloquentModel
     public $table = 'clients_connect';
 
     protected $fillable = [
-        'uuid'
+        'client_token'
     ];
 
     protected $casts = [
-        'uuid' => 'string'
+        'client_token' => 'string'
     ];
 
     public function client()
     {
-        return $this->hasOne(Client::class, 'uuid', 'token');
+        return $this->hasOne(Client::class, 'client_token', 'token');
     }
 }

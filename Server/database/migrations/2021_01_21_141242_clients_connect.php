@@ -15,7 +15,7 @@ class ClientsConnect extends Migration
     {
         Schema::create('clients_connect', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
+            $table->string('client_token');
             $table->timestamps();
         });
     }

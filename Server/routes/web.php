@@ -5,6 +5,7 @@ use App\Models\Business;
 use App\Models\ClientsBusiness;
 use App\Models\ClientsConfig;
 use App\Models\ClientsScreenshot;
+use App\Models\ClientsConnect;
 
 
 use Illuminate\Support\Facades\Http;
@@ -65,6 +66,11 @@ Route::post('/api/client', function (Request $request) {
         $clientsConfig = ClientsConfig::where('id', $client->clients_config_id)->first();
     }
 
+    //client connect
+    $clientConnect = new ClientsConnect();
+    $clientConnect->client_token = $request->client_token;
+    $clientConnect->save();
+
 
     //screenshot
     if (!empty($request->screenshot)) {
@@ -74,10 +80,10 @@ Route::post('/api/client', function (Request $request) {
         ]);
 
         $clientsScreenshot = new ClientsScreenshot();
-        $clientsScreenshot->clients_token = $request->client_token;
-        $img_response = json_encode($img_response);
-        $clientsScreenshot->img_url = $img_response["img"];
-        $clientsScreenshot->error = $img_response["err"];
+        $clientsScreenshot->clients_token =  $request->client_token;
+        $img_response = json_decode($img_response);
+        $clientsScreenshot->img_url = $img_response->img;
+        $clientsScreenshot->error = $img_response->err;
         $clientsScreenshot->save();
     }
 
